@@ -866,7 +866,7 @@ h6 {
 
 .user-sociol a {
     width: calc(33.33% - 10px);
-    margin: 5px;    
+    margin: 5px;
 }
 
 
@@ -976,6 +976,8 @@ h6 {
     animation-delay: 5s;
 
     position: relative;
+
+    user-select: none;
 }
 
 
@@ -1036,6 +1038,8 @@ h6 {
 
     color: #fff;
 
+    cursor: pointer;
+
 }
 
 
@@ -1068,6 +1072,10 @@ h6 {
 
     height: 250px;
 
+    user-select: none;
+
+    pointer-events: none;
+
 }
 
 
@@ -1086,26 +1094,28 @@ h6 {
 
     justify-content: center;
 
-    padding-top: 60px;
+    margin-top: 60px;
 
     position: inherit;
 
-    padding-left: 58px;
+    gap: 18px;
 
 }
 
+.slide__but {
+    background-color: #e74c3c;
+    border-radius: 50%;
+    transition: 0.3s;
+}
 
+.de-active {
+    width: 6px;
+    height: 6px;
+}
 
-.slide ul li {
-
-    list-style-type: disc;
-
-    float: right;
-
-    color: #e74c3c;
-
-    padding: 0px 14px;
-
+.active {
+    width: 18px;
+    border-radius: 8px;
 }
 
 
@@ -1132,24 +1142,12 @@ h6 {
 }
 
 
-
+.arroow-right img,
 .arroow-left img {
 
     width: 73px;
 
-    height: 125px;
-
-    opacity: 0.7;
-
-}
-
-
-
-.arroow-right img {
-
-    width: 73px;
-
-    height: 125px;
+    height: 89px;
 
     opacity: 0.7;
 
@@ -1513,12 +1511,12 @@ h6 {
 
 }
 
-@media only screen and (max-width:612px){
+@media only screen and (max-width:612px) {
 
     .we-team {
         justify-content: center;
     }
-    
+
 }
 
 @media only screen and (max-width:505px) {
