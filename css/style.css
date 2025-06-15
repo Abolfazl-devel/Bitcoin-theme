@@ -976,9 +976,6 @@ h6 {
     animation-delay: 5s;
 
     position: relative;
-
-    animation: 12s comments infinite ease-in-out;
-
 }
 
 
@@ -1159,51 +1156,6 @@ h6 {
     cursor: pointer;
 
 }
-
-
-
-/*start comment box animation */
-
-@keyframes comments {
-
-    0% {
-
-        left: 0%
-    }
-
-
-
-    4% {
-
-        left: 100%
-    }
-
-
-
-    33.33% {
-
-        left: 100%
-    }
-
-
-
-    37.33% {
-
-        left: 200%
-    }
-
-
-
-    100% {
-
-        left: 200%
-    }
-
-}
-
-
-
-/* end comment box animation */
 
 /*end comment box*/
 
