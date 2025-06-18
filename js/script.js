@@ -62,6 +62,7 @@ sliderParent.addEventListener('mousedown', function () {
 });
 
 slider.addEventListener('mousedown', function (e) {
+  clearInterval(sliderAnimation);
   dragStart = true;
   sliderX = e.pageX;
   slider.style.transition = 'none';
@@ -181,20 +182,12 @@ slider.addEventListener('mousemove', function (event) {
         };
       };
     };
-
-    // if (MoveTranslateX > sliderPositions[0] && MoveTranslateX < (sliderPositions[0] + itemSize)) {
-    //   closestPosition = 0;
-    // } else if (MoveTranslateX > sliderPositions[1] && MoveTranslateX < (sliderPositions[1] + itemSize)) {
-    //   closestPosition = 1;
-
-    // } else if (MoveTranslateX > sliderPositions[2] && MoveTranslateX < (sliderPositions[2] + itemSize)) {
-    //   closestPosition = 2;
-    // };
     checkMouseMove = true;
   };
 });
 
 slider.addEventListener('mouseup', function (e) {
+  sliderAnimation = setInterval(sliderAnimationWork, 2500);
   sliderRightPos();
   stopDragging();
   sliderX = e.pageX;
@@ -239,20 +232,25 @@ leftSliderBut.onclick = function () {
 var checkEndPos = false;
 littleBut.forEach(function (button, index) {
   button.onclick = function () {
+    clearInterval(sliderAnimation);
     function littleButWork(position) {
       slider.style.transform = `translateX(${position}px)`;
       slider.style.transition = 'transform 0.3s ease-out';
       closestPosition = '';
+      deActive();
     };
     switch (index) {
       case 0:
         if (littleBut[2].classList.contains('active')) {
           littleButWork(endPo);
           checkEndPos = true;
+          XTranslate = endPo;
+          rightTranslateX = endPo;
         } else {
           littleButWork(sliderPositions[0]);
+          XTranslate = sliderPositions[0];
+          rightTranslateX = sliderPositions[0];
         };
-        deActive();
         littleBut[0].classList.add('active');
         checkSlidersPos = [true, false, false];
         break;
@@ -261,10 +259,11 @@ littleBut.forEach(function (button, index) {
         slider.style.transform = `translateX(${sliderPositions[0]}px)`;
         setTimeout(() => {
           littleButWork(sliderPositions[1]);
+          littleBut[1].classList.add('active');
         }, 10);
-        deActive();
-        littleBut[1].classList.add('active');
         checkSlidersPos = [false, true, false];
+        XTranslate = sliderPositions[1];
+        rightTranslateX = sliderPositions[1];
         break;
       case 2:
         if (littleBut[0].classList.contains('active')) {
@@ -272,13 +271,71 @@ littleBut.forEach(function (button, index) {
           slider.style.transform = `translateX(${endPo}px)`;
           setTimeout(() => {
             littleButWork(sliderPositions[2]);
+            littleBut[2].classList.add('active');
           }, 10);
-        } else {          
+        } else {
           littleButWork(sliderPositions[2]);
+          littleBut[2].classList.add('active');
         };
-        deActive();
-        littleBut[2].classList.add('active');
         checkSlidersPos = [false, false, true];
+        XTranslate = sliderPositions[2];
+        rightTranslateX = sliderPositions[2];
+        break;
+    };
+    setTimeout(() => {
+      sliderAnimation = setInterval(sliderAnimationWork, 2500)
+    }, 10);
+  };
+});
+
+function sliderAnimationWork() {
+  var witchPos = '';
+  var transformValue = window.getComputedStyle(slider).transform;
+  if (transformValue !== 'none') {
+    var regex3d = /matrix3d\(([^)]+)\)/;
+    var match3d = transformValue.match(regex3d);
+
+    if (match3d) {
+      var matrix3d = match3d[1].split(',').map(parseFloat);
+      witchPos = matrix3d[12];
+    } else {
+      var regex2d = /matrix\(([^)]+)\)/;
+      var match2d = transformValue.match(regex2d);
+
+      if (match2d) {
+        var matrix2d = match2d[1].split(',').map(parseFloat);
+        witchPos = matrix2d[4];
+      };
     };
   };
-});  
+  function changePos(pos) {
+    slider.style.transform = `translateX(${pos}px)`;
+    slider.style.transition = 'transform 0.5s ease-out';
+    deActive();
+  };
+
+  if (Number(witchPos) + Number(itemSize) == sliderPositions[1]) {
+    changePos(Number(witchPos) + Number(itemSize));
+    littleBut[1].classList.add('active');
+    closestPosition = 1;
+    XTranslate = Number(witchPos) + Number(itemSize);
+    rightTranslateX = Number(witchPos) + Number(itemSize);
+  } else if (Number(witchPos) + Number(itemSize) == sliderPositions[2]) {
+    changePos(Number(witchPos) + Number(itemSize));
+    littleBut[2].classList.add('active');
+    closestPosition = 2;
+    XTranslate = Number(witchPos) + Number(itemSize);
+    rightTranslateX = Number(witchPos) + Number(itemSize);
+  } else if (Number(witchPos) + Number(itemSize) == endPo) {
+    changePos(Number(witchPos) + Number(itemSize));
+    setTimeout(() => {
+      slider.style.transition = 'none';
+      slider.style.transform = `translateX(${sliderPositions[0]}px)`;
+    }, 1000);
+    closestPosition = 0;
+    XTranslate = sliderPositions[0];
+    rightTranslateX = sliderPositions[0];
+    littleBut[0].classList.add('active');
+  };
+};
+var sliderAnimation = setInterval(sliderAnimationWork, 2500);
