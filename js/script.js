@@ -38,6 +38,7 @@ function deActive() {
 };
 
 function endSlide(xTrans, xTrans2, checkSlider) {
+  deActive();
   rightTranslateX = xTrans;
   slider.style.transform = `translate3d(${rightTranslateX}px, 0, 0)`;
   slider.style.transition = 'transform 0.3s ease-out';
@@ -206,25 +207,45 @@ var rightSliderBut = document.getElementById('arroow-right');
 
 function sliderClick() {
   XTranslate = rightTranslateX;
-  var position = [sliderStart, endPo];
-  closestPosition = position.indexOf(rightTranslateX);
-  if (rightTranslateX == position[0]) {
-    endSlide(sliderStart, sliderPositions[2], [false, false, true]);
-  } else if (rightTranslateX == position[1]) {
-    endSlide(endPo, sliderPositions[0], [true, false, false]);
-  } else {
-    slider.style.transform = `translate3d(${rightTranslateX}px, 0, 0)`;
-    slider.style.transition = 'transform 0.3s ease-out';
+  switch (rightTranslateX) {
+    case sliderStart:
+      endSlide(sliderStart, sliderPositions[2], [false, false, true]);
+      littleBut[2].classList.add('active');
+      break;
+
+    case endPo:
+      endSlide(endPo, sliderPositions[0], [true, false, false]);
+      littleBut[0].classList.add('active');
+      break;
+
+    case sliderPositions[0]:
+      changePos(rightTranslateX, 0, [true, false, false]);
+      littleBut[0].classList.add('active');
+      break;
+
+    case sliderPositions[1]:
+      changePos(rightTranslateX, 1, [false, true, false]);
+      littleBut[1].classList.add('active');
+      break;
+
+    case sliderPositions[2]:
+      changePos(rightTranslateX, 2, [false, false, true]);
+      littleBut[2].classList.add('active');
+      break;
+
   };
+  sliderAnimation = setInterval(sliderAnimationWork, 2500);
   closestPosition = '';
 };
 
 rightSliderBut.onclick = function () {
+  clearInterval(sliderAnimation);
   rightTranslateX -= itemSize;
   sliderClick();
 };
 
 leftSliderBut.onclick = function () {
+  clearInterval(sliderAnimation);
   rightTranslateX += itemSize;
   sliderClick();
 };
