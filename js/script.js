@@ -46,8 +46,6 @@ function endSlide(xTrans, xTrans2, checkSlider) {
   noneTransion = true;
   slider.addEventListener('transitionend', function () {
     slider.style.transition = 'none';
-    console.log(rightTranslateX);
-
     slider.style.transform = `translate3d(${rightTranslateX}px, 0, 0)`;
 
   }, { once: true }); closestPosition = '';
@@ -158,7 +156,6 @@ slider.addEventListener('mousemove', function (event) {
       rightTranslateX = endPo;
     } else if (rightTranslateX > endPo) {
       rightTranslateX = sliderStart;
-
     };
     slider.style.transition = 'none';
     slider.style.transform = `translateX(${rightTranslateX}px)`;
@@ -291,6 +288,7 @@ function changePos(pos, nowPos, arrayValue) {
   deActive();
   XTranslate = pos;
   rightTranslateX = pos;
+  MoveTranslateX = pos;
   closestPosition = nowPos;
   checkSlidersPos = arrayValue;
 };
@@ -317,18 +315,13 @@ function sliderAnimationWork() {
   };
 
   if (Number(witchPos) + Number(itemSize) == sliderPositions[1]) {
-    changePos(Number(witchPos) + Number(itemSize), 2, [false, true, false]);
-    console.log('1' + checkSlidersPos);
+    changePos(Number(witchPos) + Number(itemSize), '', [false, true, false]);
     littleBut[1].classList.add('active');
   } else if (Number(witchPos) + Number(itemSize) == sliderPositions[2]) {
-    changePos(Number(witchPos) + Number(itemSize), 3, [false, false, true]);
-    console.log('2' + checkSlidersPos);
-
+    changePos(Number(witchPos) + Number(itemSize), '', [false, false, true]);
     littleBut[2].classList.add('active');
   } else if (Number(witchPos) + Number(itemSize) == endPo) {
-    changePos(Number(witchPos) + Number(itemSize), 1, [true, false, false]);
-    console.log('3' + checkSlidersPos);
-
+    changePos(Number(witchPos) + Number(itemSize), '', [true, false, false]);
     setTimeout(() => {
       endSlider(sliderPositions[0]);
     }, 1000);
@@ -355,7 +348,6 @@ function sliderResponsive() {
   };
   if (window.innerWidth < 1336) {
     backToPos(window.innerWidth);
-    console.log('resize' + checkSlidersPos);
   } else {
     backToPos(1336);
   };
