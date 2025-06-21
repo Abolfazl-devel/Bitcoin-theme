@@ -1120,25 +1120,12 @@ h6 {
 
 
 
-.arroow-left {
-
-    position: absolute;
-
-    top: 50%;
-
-    left: 0;
-
-}
-
-
-
+.arroow-left,
 .arroow-right {
 
     position: absolute;
 
-    top: 51%;
-
-    right: 0;
+    top: 50%;
 }
 
 
@@ -1525,6 +1512,19 @@ h6 {
 
         padding: 0px;
 
+    }
+
+    .arroow-left,
+    .arroow-right {
+        top: 55%;
+    }
+
+    .arroow-right img,
+    .arroow-left img {
+        width: 51px;
+        height: 52px;
+        opacity: 0.7;
+        cursor: pointer;
     }
 
 }

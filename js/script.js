@@ -296,13 +296,18 @@ function sliderAnimationWork() {
   };
 
   if (Number(witchPos) + Number(itemSize) == sliderPositions[1]) {
-    changePos(Number(witchPos) + Number(itemSize), 1, [true, false, false]);
+    changePos(Number(witchPos) + Number(itemSize), 2, [false, true, false]);
+    console.log('1' + checkSlidersPos);
     littleBut[1].classList.add('active');
   } else if (Number(witchPos) + Number(itemSize) == sliderPositions[2]) {
-    changePos(Number(witchPos) + Number(itemSize), 2, [false, true, false]);
+    changePos(Number(witchPos) + Number(itemSize), 3, [false, false, true]);
+    console.log('2' + checkSlidersPos);
+
     littleBut[2].classList.add('active');
   } else if (Number(witchPos) + Number(itemSize) == endPo) {
-    changePos(Number(witchPos) + Number(itemSize), 1, [false, false, true]);
+    changePos(Number(witchPos) + Number(itemSize), 1, [true, false, false]);
+    console.log('3' + checkSlidersPos);
+
     setTimeout(() => {
       endSlider(sliderPositions[0]);
     }, 1000);
@@ -310,3 +315,31 @@ function sliderAnimationWork() {
   };
 };
 var sliderAnimation = setInterval(sliderAnimationWork, 2500);
+
+function sliderResponsive() {
+  function backToPos(size) {
+    itemSize = size;
+    endPo = itemSize * 4;
+    sliderPositions = [itemSize, itemSize * 2, itemSize * 3];
+    if (checkSlidersPos[0]) {
+      changePos(sliderPositions[0], 0, [true, false, false]);
+      littleBut[0].classList.add('active');
+    } else if (checkSlidersPos[1]) {
+      changePos(sliderPositions[1], 1, [false, true, false]);
+      littleBut[1].classList.add('active');
+    } else if (checkSlidersPos[2]) {
+      changePos(sliderPositions[2], 2, [false, false, true]);
+      littleBut[2].classList.add('active');
+    };
+  };
+  if (window.innerWidth < 1336) {
+    backToPos(window.innerWidth);
+    console.log('resize' + checkSlidersPos);
+  } else {
+    backToPos(1336);
+  };
+};
+sliderResponsive();
+window.addEventListener('resize', function () {
+  sliderResponsive();
+});
