@@ -699,7 +699,7 @@ h6 {
 
 /* start we team */
 
-.w-100-we-team {
+.w-100-our-team {
 
     background-color: #C4C4C4;
 
@@ -715,7 +715,7 @@ h6 {
 
 
 
-.we-team-box h3 {
+.our-team-box h3 {
 
     text-align: center;
 
@@ -727,7 +727,7 @@ h6 {
 
 
 
-.we-team {
+.our-team {
 
     display: flex;
 
@@ -854,7 +854,7 @@ h6 {
 
 
 
-.we-team-name {
+.our-team-name {
 
     padding-top: 11px;
 
@@ -1476,7 +1476,7 @@ h6 {
 
 @media only screen and (max-width:612px) {
 
-    .we-team {
+    .our-team {
         justify-content: center;
     }
 
