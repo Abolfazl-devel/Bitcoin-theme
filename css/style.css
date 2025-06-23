@@ -31,14 +31,7 @@
     max-width: 1336px;
 
     width: 100%;
-
-    overflow: hidden;
-
 }
-
-
-
-
 
 /*start header*/
 
@@ -47,6 +40,7 @@
     background: rgba(0, 0, 0, 0.5);
 
     backdrop-filter: blur(0);
+    z-index: 2;
 
 }
 
@@ -59,8 +53,11 @@
     padding: 15px;
 
     display: flex;
-
+    align-items: center;
     justify-content: space-between;
+
+    position: relative;
+
 
 }
 
@@ -68,7 +65,7 @@
 
 .site-name {
 
-    width: 50%;
+    width: 20%;
 
 }
 
@@ -92,12 +89,7 @@
 
 }
 
-
-
-/*start menu */
-
-
-
+/* start menu */
 .menu {
 
     display: flex;
@@ -106,50 +98,126 @@
 
     align-items: center;
 
-    width: 189%;
+    width: 80%;
+    z-index: 2;
+    transition: all 0.4s ease-in-out 0s;
+    transform-origin: top;
 
 }
 
+.menu ul {
+    display: flex;
+    gap: 23px;
+    align-items: center;
+}
 
-
-.menu ul li {
-
-    float: right;
-
-    margin: 0px 23px 0px 0px;
-
-    cursor: pointer;
-
+.menu ul li a {
     color: #fff;
-
     transition: all ease 0.3s;
-
-    max-width: 1336px;
-
+    cursor: pointer;
 }
 
+/* end menu*/
 
+/* start mobile menu */
+.mobile__menu-button {
+    display: none;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform-origin: center center;
+    transform: rotate(0deg);
+    transition: transform 300ms ease;
+    display: none;
+}
 
-/*end menu*/
+.mobile__menu-button-open>span,
+.mobile__menu-button-close>span {
+    height: 3px;
+    width: 35px;
+    display: block;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.mobile__menu-button-open>span:nth-child(2) {
+    width: 40px;
+    transition-delay: 200ms;
+}
+
+.mobile__menu-button-open>span:nth-child(3) {
+    width: 30px;
+}
+
+.mobile__menu-button-open>span:last-child {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    width: 3px;
+    height: 0;
+    transition: height 400ms;
+}
+
+.mobile__menu-button-close {
+    transform: rotate(45deg);
+    transition-delay: 400ms;
+}
+
+.mobile__menu-button-close>span:first-child {
+    width: 0;
+}
+
+.mobile__menu-button-close>span:nth-child(2) {
+    width: 40px;
+    transition-delay: 200ms;
+}
+
+.mobile__menu-button-close>span:nth-child(3) {
+    width: 0;
+}
+
+.mobile__menu-button-close>span:last-child {
+    height: 40px;
+    transition: height 200ms ease;
+    transition-delay: 0s;
+    transition-delay: 200ms;
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-56%);
+    display: block;
+    width: 3px;
+}
+
+.scaleY-0 {
+    transform: scaleY(0);
+}
+
+.scaleY-1 {
+    transform: scaleY(1);
+}
+
+/* end mobile menu */
+
 
 /* start menu hover */
 
-.menu ul li:hover {
+.menu ul li a:hover {
 
     color: #e74c3c;
 
 }
 
-
-
 /* end menu hover */
-
-.menu li:last-child {
-
-    margin-left: 0px;
-
-}
-
 
 
 .full-width-container {
@@ -224,117 +292,6 @@
     display: flex;
 
 }
-
-
-
-/*start mobile menu */
-
-.mobile-menu-box {
-
-    position: absolute;
-
-    right: 86%;
-
-    text-align: left;
-
-    display: none;
-
-    padding-top: 20px;
-
-}
-
-
-
-.mobile-menu-img img {
-
-    width: 38px;
-
-    cursor: pointer;
-
-}
-
-
-
-.mobile-menu-box input[type=checkbox] {
-
-    display: none;
-
-}
-
-
-
-.mobile-menu ul label {
-
-    color: #fff;
-
-    padding: 3px 11%;
-
-    cursor: pointer;
-
-}
-
-
-
-.mobile-menu {
-
-    background-color: rgba(0, 0, 0, 0.5);
-
-    width: 201px;
-
-    padding: 0px 0px;
-
-    position: absolute;
-
-    right: -371%;
-
-    top: 80px;
-
-    display: none;
-
-    flex-direction: column;
-
-}
-
-
-
-/* start mobile menu cheacked */
-
-.mobile-menu ul {
-
-    display: flex;
-
-    flex-direction: column
-}
-
-
-
-.mobile-menu ul input[type=checkbox] {
-
-    display: none;
-
-}
-
-
-
-.mobile-menu input[type=checkbox]:checked+label {
-
-    color: #e74c3c;
-
-}
-
-
-
-.mobile-menu-box input[type=checkbox]:checked+.mobile-menu {
-
-    display: flex;
-
-}
-
-
-
-/* end mobile menu cheacked */
-
-/*end mobile menu */
 
 /*end header*/
 
@@ -1480,9 +1437,30 @@ h6 {
 @media only screen and (max-width:565px) {
 
     .menu {
+        position: absolute;
+        top: 94px;
+        right: 0;
+        justify-content: center;
+        width: 100%;
+        background-color: #000;
+        padding: 20px 0;
+        font-size: 25px;
+        height: calc(100vh - 134px);
+        align-items: start;
+    }
 
-        display: none;
+    .menu ul {
 
+        flex-direction: column;
+
+    }
+
+    .site-name {
+        width: fit-content;
+    }
+
+    .mobile__menu-button {
+        display: flex;
     }
 
 }
