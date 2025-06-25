@@ -479,7 +479,7 @@ html {
 
 .w-100-portfolio {
 
-    background: url(../img/picture2.webp) no-repeat center;
+    background: url(../img/picture1.webp) no-repeat center;
 
     width: 100%;
 
@@ -886,7 +886,7 @@ h6 {
 
     width: 100%;
 
-    background-image: url(../img/picture3.webp);
+    background-image: url(../img/picture2.webp);
 
     background-size: cover;
 
@@ -1250,7 +1250,7 @@ h6 {
 
     width: 100%;
 
-    background-image: url(../img/picture4.webp);
+    background-image: url(../img/picture3.webp);
 
     background-size: cover;
 
