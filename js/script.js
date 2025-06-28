@@ -61,12 +61,9 @@ sliderParent.addEventListener('mousedown', function () {
 });
 
 slider.addEventListener('mousedown', function (e) {
-  clearInterval(sliderAnimation);
-  dragStart = true;
-  sliderX = e.pageX;
-  slider.style.transition = 'none';
-  slider.style.cursor = 'grabbing';
+  sliderDown(e);
 });
+
 
 function sliderRightPos() {
   var position = [sliderPositions[0], sliderPositions[1], sliderPositions[2]];
@@ -146,7 +143,7 @@ function sliderRightPos() {
   };
 };
 
-slider.addEventListener('mousemove', function (event) {
+function sliderMove(event) {
   if (dragStart) {
     MoveTranslateX = event.pageX;
     var deltaX = MoveTranslateX - sliderX;
@@ -182,22 +179,63 @@ slider.addEventListener('mousemove', function (event) {
     };
     checkMouseMove = true;
   };
-});
+};
 
-slider.addEventListener('mouseup', function (e) {
+function sliderUp(e) {
   sliderAnimation = setInterval(sliderAnimationWork, 2500);
   sliderRightPos();
   stopDragging();
   sliderX = e.pageX;
-});
-slider.addEventListener('mouseleave', function (e) {
+};
+
+function sliderLeave(e) {
   if (dragStart) {
     sliderRightPos();
     dragStart = false;
   };
   sliderX = e.pageX;
   stopDragging();
+};
+
+function sliderDown(e) {
+  clearInterval(sliderAnimation);
+  dragStart = true;
+  sliderX = e.pageX;
+  slider.style.transition = 'none';
+  slider.style.cursor = 'grabbing';
+}
+
+slider.addEventListener('mousemove', function (event) {
+  sliderMove(event);
 });
+
+slider.addEventListener('mouseup', function (e) {
+  sliderUp(e);
+});
+slider.addEventListener('mouseleave', function (e) {
+  sliderLeave(e);
+});
+
+sliderParent.addEventListener('touchstart', function () {
+  sliderParent.style.cursor = 'grabbing';
+});
+
+slider.addEventListener('touchstart', function (e) {
+  sliderDown(e.changedTouches[0]);
+});
+
+slider.addEventListener('touchmove', function (e) {
+  sliderMove(e.changedTouches[0]);
+});
+
+slider.addEventListener('touchend', function (e) {
+  sliderUp(e.changedTouches[0]);
+});
+
+slider.addEventListener('touchcancel', function (e) {
+  sliderLeave(e.changedTouches[0]);
+});
+
 
 var leftSliderBut = document.getElementById('arroow-left');
 var rightSliderBut = document.getElementById('arroow-right');
