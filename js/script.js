@@ -5,7 +5,7 @@ var sliderParent = document.getElementById('comments-parent');
 var slider = document.getElementById('comments');
 var dragStart = false;
 var sliderMousePosition = 0;
-var sliderStart = 1336;
+var sliderStart = 0;
 var sliderX = 0;
 var sliderSpeed = 0.8;
 var sliderChangeXValue = 20;
@@ -151,12 +151,8 @@ function sliderMove(event) {
     rightTranslateX += deltaX * sliderSpeed;
     if (rightTranslateX < sliderStart) {
       rightTranslateX = endPo;
-      console.log('endpos');
-
     } else if (rightTranslateX > endPo) {
       rightTranslateX = sliderStart;
-      console.log('start pos');
-
     };
     slider.style.transition = 'none';
     slider.style.transform = `translateX(${rightTranslateX}px)`;
@@ -370,7 +366,7 @@ function sliderAnimationWork() {
         changePos(sliderPositions[0], '', [true, false, false]);
         littleBut[0].classList.add('active');
       }, 10);
-    }, 1000);
+    }, 400);
     littleBut[0].classList.add('active');
   };
 };
